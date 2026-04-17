@@ -3,56 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Giga-Integral</title>
+    <title>Niche Integral</title>
     
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
             padding: 40px;
-            background-color: #f9f9f9;
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #f6f8fa;
+            color: #24292e;
+        }
+
+        h2 {
+            border-bottom: 2px solid #e1e4e8;
+            padding-bottom: 10px;
         }
 
         .math-wrapper {
             background: #ffffff;
-            border: 1px solid #e1e4e8;
+            border: 1px solid #d1d5da;
             border-radius: 8px;
             padding: 24px;
             margin: 20px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
-        /* This is the secret sauce for the scrollbar */
+        /* Essential for horizontal scrolling on long formulas */
         .scrollable-math {
             overflow-x: auto;
             overflow-y: hidden;
-            padding: 10px 0;
-            /* Smooth scrolling for touch devices */
+            padding: 15px 0;
             -webkit-overflow-scrolling: touch; 
         }
 
-        /* Optional: Style the scrollbar to look cleaner */
         .scrollable-math::-webkit-scrollbar {
-            height: 8px;
+            height: 6px;
         }
         .scrollable-math::-webkit-scrollbar-thumb {
-            background: #ccc;
+            background: #cbd5e0;
             border-radius: 10px;
+        }
+
+        /* Expandable Solution Section Styles */
+        details {
+            background: #ffffff;
+            border: 1px solid #d1d5da;
+            border-radius: 8px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        summary {
+            padding: 15px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            background: #f1f3f5;
+            outline: none;
+            user-select: none;
+        }
+
+        summary:hover {
+            background: #e9ecef;
+        }
+
+        .solution-content {
+            padding: 20px;
+            border-top: 1px solid #d1d5da;
+        }
+
+        .step-box {
+            background: #f8f9fa;
+            border-left: 4px solid #0366d6;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        code {
+            background: #f1f3f5;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
         }
     </style>
 </head>
 <body>
 
-    <h2>The "Giga-Integral"</h2>
+    <h2>Niche Integral</h2>
     
     <div class="math-wrapper">
         <div class="scrollable-math">
             $${ \int \frac{ \left[ x^{x^x} \cdot x^x \left( \ln x(1+\ln x) + \frac{1}{x} \right) \cdot \Gamma(\operatorname{Si}(x)) \cdot \operatorname{W}_0(\phi^x) + x^{x^x} \cdot \Gamma(\operatorname{Si}(x)) \psi^{(0)}(\operatorname{Si}(x)) \frac{\sin x \operatorname{W}_0(\phi^x)}{x} + \frac{x^{x^x} \Gamma(\operatorname{Si}(x)) \operatorname{W}_0(\phi^x) \ln \phi}{1 + \operatorname{W}_0(\phi^x)} \right] \cdot \left( \operatorname{erf}(\sqrt{x}) + \operatorname{Li}_2\left(\frac{1}{1+x^2}\right) \right) - \left( x^{x^x} \Gamma(\operatorname{Si}(x)) \operatorname{W}_0(\phi^x) \right) \cdot \left( \frac{e^{-x}}{\sqrt{\pi x}} + \frac{2x \ln\left( \frac{x^2}{1+x^2} \right)}{1+x^2} \right) }{ \left( \operatorname{erf}(\sqrt{x}) + \operatorname{Li}_2\left(\frac{1}{1+x^2}\right) \right)^2 } \, dx }$$
         </div>
     </div>
+
+    <details>
+        <summary>Click to reveal the full step-by-step solution</summary>
+        <div class="solution-content">
+            <p>At first glance, this integral appears to be a chaotic collection of transcendental functions. However, the structure is a precisely engineered application of the <strong>Quotient Rule</strong> in reverse.</p>
+            
+            <p>The fundamental identity being used is:</p>
+            $$\int \frac{u'(x)v(x) - u(x)v'(x)}{[v(x)]^2} \, dx = \frac{u(x)}{v(x)} + C$$
+
+            <hr>
+
+            <h3>Step 1: Identify the Parent Functions</h3>
+            <p>We define the numerator function $u(x)$ and the denominator function $v(x)$ from the integrand:</p>
+            
+            <div class="step-box">
+                <strong>Numerator:</strong> 
+                $$u(x) = x^{x^x} \cdot \Gamma(\operatorname{Si}(x)) \cdot \operatorname{W}_0(\phi^x)$$
+                <br>
+                <strong>Denominator:</strong> 
+                $$v(x) = \operatorname{erf}(\sqrt{x}) + \operatorname{Li}_2\left(\frac{1}{1+x^2}\right)$$
+            </div>
+
+            <h3>Step 2: Differentiate the Numerator \(u'(x)\)</h3>
+            <p>Applying the <strong>Product Rule</strong> to $u(x)$ requires three separate derivatives:</p>
+            <ul>
+                <li><strong>Tower of Power:</strong> $\frac{d}{dx}(x^{x^x}) = x^{x^x} \cdot x^x \left( \ln x(1+\ln x) + \frac{1}{x} \right)$</li>
+                <li><strong>Gamma of Sine Integral:</strong> $\frac{d}{dx}\Gamma(\operatorname{Si}(x)) = \Gamma(\operatorname{Si}(x)) \psi^{(0)}(\operatorname{Si}(x)) \frac{\sin x}{x}$</li>
+                <li><strong>Lambert W Function:</strong> $\frac{d}{dx}\operatorname{W}_0(\phi^x) = \frac{\operatorname{W}_0(\phi^x) \ln \phi}{1 + \operatorname{W}_0(\phi^x)}$</li>
+            </ul>
+            <p>Combining these yields the massive bracketed expression in the first half of the integral's numerator.</p>
+
+            <h3>Step 3: Differentiate the Denominator \(v'(x)\)</h3>
+            <p>Differentiating $v(x)$ involves the <strong>Error Function</strong> and the <strong>Dilogarithm</strong>:</p>
+            <ul>
+                <li><strong>Error Function:</strong> $\frac{d}{dx}\operatorname{erf}(\sqrt{x}) = \frac{e^{-x}}{\sqrt{\pi x}}$</li>
+                <li><strong>Dilogarithm:</strong> $\frac{d}{dx}\operatorname{Li}_2\left(\frac{1}{1+x^2}\right) = \frac{2x \ln\left( \frac{x^2}{1+x^2} \right)}{1+x^2}$</li>
+            </ul>
+            <p>This matches the subtracted term in the second half of the integral's numerator.</p>
+
+            <h3>Final Result</h3>
+            <p>Since the integrand is exactly $\frac{d}{dx} [u(x)/v(x)]$, the solution is simply the ratio of our two parent functions:</p>
+            
+            <div class="step-box" style="text-align: center; border-left-color: #28a745;">
+                <strong>$$\frac{ x^{x^x} \cdot \Gamma(\operatorname{Si}(x)) \cdot \operatorname{W}_0(\phi^x) }{ \operatorname{erf}(\sqrt{x}) + \operatorname{Li}_2\left(\frac{1}{1+x^2}\right) } + C$$</strong>
+            </div>
+        </div>
+    </details>
 
 </body>
 </html>
