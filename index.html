@@ -26,9 +26,36 @@
             color: #24292e;
         }
 
-        h2 {
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             border-bottom: 2px solid #e1e4e8;
             padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .nav-header h2 {
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-arrow {
+            cursor: pointer;
+            color: #0366d6;
+            font-weight: 600;
+            user-select: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        .nav-arrow:hover {
+            color: #005cc5;
+            background-color: #e1e4e8;
         }
 
         .math-wrapper {
@@ -87,64 +114,161 @@
             padding: 15px;
             margin: 15px 0;
         }
+
+        .page-section {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        #page1 {
+            display: block; /* Default visible page */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
 
-    <h2>Niche Integral</h2>
-    
-    <div class="math-wrapper">
-        <div class="scrollable-math">
-            $${ \int \frac{ \left[ x^{x^x} \cdot x^x \left( \ln x(1+\ln x) + \frac{1}{x} \right) \cdot \Gamma(\operatorname{Si}(x)) \cdot \operatorname{W}_0(\phi^x) + x^{x^x} \cdot \Gamma(\operatorname{Si}(x)) \psi^{(0)}(\operatorname{Si}(x)) \frac{\sin x \operatorname{W}_0(\phi^x)}{x} + \frac{x^{x^x} \Gamma(\operatorname{Si}(x)) \operatorname{W}_0(\phi^x) \ln \phi}{1 + \operatorname{W}_0(\phi^x)} \right] \cdot \left( \operatorname{erf}(\sqrt{x}) + \operatorname{Li}_2\left(\frac{1}{1+x^2}\right) \right) - \left( x^{x^x} \Gamma(\operatorname{Si}(x)) \operatorname{W}_0(\phi^x) \right) \cdot \left( \frac{e^{-x}}{\sqrt{\pi x}} + \frac{2x \ln\left( \frac{x^2}{1+x^2} \right)}{1+x^2} \right) }{ \left( \operatorname{erf}(\sqrt{x}) + \operatorname{Li}_2\left(\frac{1}{1+x^2}\right) \right)^2 } \, dx }$$
+    <div id="page1" class="page-section">
+        <div class="nav-header">
+            <h2>Niche Integral #1</h2>
+            <span class="nav-arrow" onclick="document.getElementById('page1').style.display='none'; document.getElementById('page2').style.display='block';">
+                Niche Integral #2 &rarr;
+            </span>
         </div>
+        
+        <div class="math-wrapper">
+            <div class="scrollable-math">
+                $${ \int \frac{ \left[ x^{x^x} \cdot x^x \left( \ln x(1+\ln x) + \frac{1}{x} \right) \cdot \Gamma(\operatorname{Si}(x)) \cdot \operatorname{W}_0(\phi^x) + x^{x^x} \cdot \Gamma(\operatorname{Si}(x)) \psi^{(0)}(\operatorname{Si}(x)) \frac{\sin x \operatorname{W}_0(\phi^x)}{x} + \frac{x^{x^x} \Gamma(\operatorname{Si}(x)) \operatorname{W}_0(\phi^x) \ln \phi}{1 + \operatorname{W}_0(\phi^x)} \right] \cdot \left( \operatorname{erf}(\sqrt{x}) + \operatorname{Li}_2\left(\frac{1}{1+x^2}\right) \right) - \left( x^{x^x} \Gamma(\operatorname{Si}(x)) \operatorname{W}_0(\phi^x) \right) \cdot \left( \frac{e^{-x}}{\sqrt{\pi x}} + \frac{2x \ln\left( \frac{x^2}{1+x^2} \right)}{1+x^2} \right) }{ \left( \operatorname{erf}(\sqrt{x}) + \operatorname{Li}_2\left(\frac{1}{1+x^2}\right) \right)^2 } \, dx }$$
+            </div>
+        </div>
+
+        <details>
+            <summary>Click to reveal the full step-by-step solution</summary>
+            <div class="solution-content">
+                <p>At first glance, this integral appears to be a chaotic collection of transcendental functions. However, the structure is a precisely engineered application of the <strong>Quotient Rule</strong> in reverse.</p>
+                
+                <p>The fundamental identity being used is:</p>
+                $$\int \frac{u'(x)v(x) - u(x)v'(x)}{[v(x)]^2} \, dx = \frac{u(x)}{v(x)} + C$$
+
+                <hr>
+
+                <h3>Step 1: Identify the Parent Functions</h3>
+                <p>We define the numerator function $u(x)$ and the denominator function $v(x)$ from the integrand:</p>
+                
+                <div class="step-box">
+                    <strong>Numerator:</strong> 
+                    $$u(x) = x^{x^x} \cdot \Gamma(\operatorname{Si}(x)) \cdot \operatorname{W}_0(\phi^x)$$
+                    <br>
+                    <strong>Denominator:</strong> 
+                    $$v(x) = \operatorname{erf}(\sqrt{x}) + \operatorname{Li}_2\left(\frac{1}{1+x^2}\right)$$
+                </div>
+
+                <h3>Step 2: Differentiate the Numerator \(u'(x)\)</h3>
+                <p>Applying the <strong>Product Rule</strong> to $u(x)$ requires three separate derivatives:</p>
+                <ul>
+                    <li><strong>Tower of Power:</strong> $\frac{d}{dx}(x^{x^x}) = x^{x^x} \cdot x^x \left( \ln x(1+\ln x) + \frac{1}{x} \right)$</li>
+                    <li><strong>Gamma of Sine Integral:</strong> $\frac{d}{dx}\Gamma(\operatorname{Si}(x)) = \Gamma(\operatorname{Si}(x)) \psi^{(0)}(\operatorname{Si}(x)) \frac{\sin x}{x}$</li>
+                    <li><strong>Lambert W Function:</strong> $\frac{d}{dx}\operatorname{W}_0(\phi^x) = \frac{\operatorname{W}_0(\phi^x) \ln \phi}{1 + \operatorname{W}_0(\phi^x)}$</li>
+                </ul>
+                <p>Combining these yields the massive bracketed expression in the first half of the integral's numerator.</p>
+
+                <h3>Step 3: Differentiate the Denominator \(v'(x)\)</h3>
+                <p>Differentiating $v(x)$ involves the <strong>Error Function</strong> and the <strong>Dilogarithm</strong>:</p>
+                <ul>
+                    <li><strong>Error Function:</strong> $\frac{d}{dx}\operatorname{erf}(\sqrt{x}) = \frac{e^{-x}}{\sqrt{\pi x}}$</li>
+                    <li><strong>Dilogarithm:</strong> $\frac{d}{dx}\operatorname{Li}_2\left(\frac{1}{1+x^2}\right) = \frac{2x \ln\left( \frac{x^2}{1+x^2} \right)}{1+x^2}$</li>
+                </ul>
+                <p>This matches the subtracted term in the second half of the integral's numerator.</p>
+
+                <h3>Final Result</h3>
+                <p>Since the integrand is exactly $\frac{d}{dx} [u(x)/v(x)]$, the solution is simply the ratio of our two parent functions:</p>
+                
+                <div class="step-box" style="text-align: center; border-left-color: #28a745;">
+                    <strong>$$\frac{ x^{x^x} \cdot \Gamma(\operatorname{Si}(x)) \cdot \operatorname{W}_0(\phi^x) }{ \operatorname{erf}(\sqrt{x}) + \operatorname{Li}_2\left(\frac{1}{1+x^2}\right) } + C$$</strong>
+                </div>
+            </div>
+        </details>
     </div>
 
-    <details>
-        <summary>Click to reveal the full step-by-step solution</summary>
-        <div class="solution-content">
-            <p>At first glance, this integral appears to be a chaotic collection of transcendental functions. However, the structure is a precisely engineered application of the <strong>Quotient Rule</strong> in reverse.</p>
-            
-            <p>The fundamental identity being used is:</p>
-            $$\int \frac{u'(x)v(x) - u(x)v'(x)}{[v(x)]^2} \, dx = \frac{u(x)}{v(x)} + C$$
-
-            <hr>
-
-            <h3>Step 1: Identify the Parent Functions</h3>
-            <p>We define the numerator function $u(x)$ and the denominator function $v(x)$ from the integrand:</p>
-            
-            <div class="step-box">
-                <strong>Numerator:</strong> 
-                $$u(x) = x^{x^x} \cdot \Gamma(\operatorname{Si}(x)) \cdot \operatorname{W}_0(\phi^x)$$
-                <br>
-                <strong>Denominator:</strong> 
-                $$v(x) = \operatorname{erf}(\sqrt{x}) + \operatorname{Li}_2\left(\frac{1}{1+x^2}\right)$$
-            </div>
-
-            <h3>Step 2: Differentiate the Numerator \(u'(x)\)</h3>
-            <p>Applying the <strong>Product Rule</strong> to $u(x)$ requires three separate derivatives:</p>
-            <ul>
-                <li><strong>Tower of Power:</strong> $\frac{d}{dx}(x^{x^x}) = x^{x^x} \cdot x^x \left( \ln x(1+\ln x) + \frac{1}{x} \right)$</li>
-                <li><strong>Gamma of Sine Integral:</strong> $\frac{d}{dx}\Gamma(\operatorname{Si}(x)) = \Gamma(\operatorname{Si}(x)) \psi^{(0)}(\operatorname{Si}(x)) \frac{\sin x}{x}$</li>
-                <li><strong>Lambert W Function:</strong> $\frac{d}{dx}\operatorname{W}_0(\phi^x) = \frac{\operatorname{W}_0(\phi^x) \ln \phi}{1 + \operatorname{W}_0(\phi^x)}$</li>
-            </ul>
-            <p>Combining these yields the massive bracketed expression in the first half of the integral's numerator.</p>
-
-            <h3>Step 3: Differentiate the Denominator \(v'(x)\)</h3>
-            <p>Differentiating $v(x)$ involves the <strong>Error Function</strong> and the <strong>Dilogarithm</strong>:</p>
-            <ul>
-                <li><strong>Error Function:</strong> $\frac{d}{dx}\operatorname{erf}(\sqrt{x}) = \frac{e^{-x}}{\sqrt{\pi x}}$</li>
-                <li><strong>Dilogarithm:</strong> $\frac{d}{dx}\operatorname{Li}_2\left(\frac{1}{1+x^2}\right) = \frac{2x \ln\left( \frac{x^2}{1+x^2} \right)}{1+x^2}$</li>
-            </ul>
-            <p>This matches the subtracted term in the second half of the integral's numerator.</p>
-
-            <h3>Final Result</h3>
-            <p>Since the integrand is exactly $\frac{d}{dx} [u(x)/v(x)]$, the solution is simply the ratio of our two parent functions:</p>
-            
-            <div class="step-box" style="text-align: center; border-left-color: #28a745;">
-                <strong>$$\frac{ x^{x^x} \cdot \Gamma(\operatorname{Si}(x)) \cdot \operatorname{W}_0(\phi^x) }{ \operatorname{erf}(\sqrt{x}) + \operatorname{Li}_2\left(\frac{1}{1+x^2}\right) } + C$$</strong>
+    <div id="page2" class="page-section">
+        <div class="nav-header">
+            <span class="nav-arrow" onclick="document.getElementById('page2').style.display='none'; document.getElementById('page1').style.display='block';">
+                &larr; Niche Integral #1
+            </span>
+            <h2>Niche Integral #2</h2>
+        </div>
+        
+        <div class="math-wrapper">
+            <div class="scrollable-math">
+                $${ \int_{0}^{\infty} \frac{ \ln(1+x^2) \cdot \left[ \sum_{k=0}^{\infty} \frac{ (\cos x)^{2k} e^{-\cos^2 x} }{ k! } \right] \cdot \left[ \int_{0}^{\infty} J_1(t) \, dt \right] }{ (x^4 + x^2) \cdot \left[ \frac{\cosh(\pi x)}{\pi} \left| \Gamma\left(\frac{1}{2} + ix\right) \right|^2 \right] } \, dx }$$
             </div>
         </div>
-    </details>
+
+        <details>
+            <summary>Click to reveal the full step-by-step solution</summary>
+            <div class="solution-content">
+                <p>This monstrous definite integral seems designed to break standard calculus, throwing probability distributions, infinite series, Bessel functions, and complex Gamma properties into a single blender. However, it is fundamentally a Trojan Horse. Once the illusions are stripped away, it reveals a stubborn core that demands a brilliant combination of <strong>Feynman's Trick</strong> and <strong>Contour Integration</strong>.</p>
+
+                <hr>
+
+                <h3>Step 1: Defusing the Illusions (Simplification)</h3>
+                <p>Almost everything in this integrand is a highly obfuscated form of the number $1$. Let's break down the distractions:</p>
+                
+                <div class="step-box">
+                    <strong>1. The Probability / Sigma Sum:</strong><br>
+                    The term $\sum_{k=0}^{\infty} \frac{ (\cos x)^{2k} e^{-\cos^2 x} }{ k! }$ is exactly the sum over all possible outcomes $k$ of a Poisson Distribution with parameter $\lambda = \cos^2 x$. Because the sum of all probabilities in a distribution must equal $1$, this entire series collapses perfectly to $1$.
+                    <br><br>
+                    <strong>2. The Bessel Integral:</strong><br>
+                    A well-known identity for the Bessel function of the first kind states that $\int_0^\infty J_\nu(t) \, dt = 1$ for $\Re(\nu) > -1$. Thus, $\int_0^\infty J_1(t) \, dt = 1$.
+                    <br><br>
+                    <strong>3. The Euler Reflection Formula:</strong><br>
+                    In the denominator, we have the squared magnitude of the complex Gamma function. By Euler's reflection formula, $\left| \Gamma\left(\frac{1}{2} + ix\right) \right|^2 = \frac{\pi}{\cosh(\pi x)}$. Multiplying this by $\frac{\cosh(\pi x)}{\pi}$ clearly cancels out to $1$.
+                </div>
+
+                <p>Factoring $x^4 + x^2 = x^2(1+x^2)$, our nightmare integral gracefully reduces to its true, stubbornly difficult core:</p>
+                $$\mathcal{I} = \int_{0}^{\infty} \frac{\ln(1+x^2)}{x^2(1+x^2)} \, dx$$
+
+                <h3>Step 2: Feynman's Trick (Differentiation Under the Integral Sign)</h3>
+                <p>To evaluate this, we introduce a parameter $\alpha$ into the argument of the natural log:</p>
+                $$I(\alpha) = \int_{0}^{\infty} \frac{\ln(1+\alpha^2 x^2)}{x^2(1+x^2)} \, dx$$
+                <p>Our goal is to find $I(1)$. We differentiate $I(\alpha)$ with respect to $\alpha$ (using the Leibniz Rule):</p>
+                $$I'(\alpha) = \frac{\partial}{\partial \alpha} \int_{0}^{\infty} \frac{\ln(1+\alpha^2 x^2)}{x^2(1+x^2)} \, dx = \int_{0}^{\infty} \frac{2\alpha x^2}{x^2(1+x^2)(1+\alpha^2 x^2)} \, dx$$
+                <p>The $x^2$ terms brilliantly cancel out, yielding:</p>
+                $$I'(\alpha) = 2\alpha \int_{0}^{\infty} \frac{1}{(1+x^2)(1+\alpha^2 x^2)} \, dx$$
+
+                <h3>Step 3: Contour Integration (The Residue Theorem)</h3>
+                <p>To evaluate the resulting sub-integral $J(\alpha) = \int_{0}^{\infty} \frac{1}{(1+x^2)(1+\alpha^2 x^2)} \, dx$, we can use the Residue Theorem. Because the integrand is an even function, we extend the bounds to $(-\infty, \infty)$ and divide by $2$.</p>
+                <p>Consider the complex function $f(z) = \frac{1}{(z^2+1)(\alpha^2 z^2+1)}$ integrated over a standard semi-circular contour in the upper half-plane. Assuming $\alpha > 0$, the poles inside the contour are at $z = i$ and $z = \frac{i}{\alpha}$.</p>
+                
+                <div class="step-box">
+                    <strong>Residue at $z = i$:</strong><br>
+                    $\operatorname{Res}(f, i) = \lim_{z \to i} \frac{z-i}{(z-i)(z+i)(\alpha^2 z^2+1)} = \frac{1}{2i(1-\alpha^2)}$
+                    <br><br>
+                    <strong>Residue at $z = i/\alpha$:</strong><br>
+                    $\operatorname{Res}\left(f, \frac{i}{\alpha}\right) = \lim_{z \to i/\alpha} \frac{z-i/\alpha}{(z^2+1)\alpha^2(z-i/\alpha)(z+i/\alpha)} = \frac{1}{ ( (i/\alpha)^2 + 1 )\alpha^2(2i/\alpha) } = \frac{-\alpha}{2i(1-\alpha^2)}$
+                </div>
+
+                <p>Summing the residues and applying the Residue Theorem $2\pi i \sum \operatorname{Res}$:</p>
+                $$\int_{-\infty}^{\infty} f(x) \, dx = 2\pi i \left( \frac{1-\alpha}{2i(1-\alpha^2)} \right) = 2\pi i \left( \frac{1-\alpha}{2i(1-\alpha)(1+\alpha)} \right) = \frac{\pi}{1+\alpha}$$
+                <p>Since $J(\alpha)$ is half of this, $J(\alpha) = \frac{\pi}{2(1+\alpha)}$. Substituting this back into $I'(\alpha)$ gives us:</p>
+                $$I'(\alpha) = 2\alpha \cdot \frac{\pi}{2(1+\alpha)} = \frac{\pi \alpha}{1+\alpha}$$
+
+                <h3>Step 4: The Final Descent (Integrating Back)</h3>
+                <p>We now integrate $I'(\alpha)$ with respect to $\alpha$ to recover our function $I(\alpha)$:</p>
+                $$I(\alpha) = \int \frac{\pi \alpha}{1+\alpha} \, d\alpha = \pi \int \left( 1 - \frac{1}{1+\alpha} \right) \, d\alpha = \pi \Big( \alpha - \ln(1+\alpha) \Big) + C$$
+                <p>To find $C$, we observe from our original parameterization that $I(0) = 0$. Plugging in $\alpha = 0$ yields $0 = \pi(0 - \ln 1) + C \implies C = 0$.</p>
+                <p>Finally, we evaluate $I(\alpha)$ at our target value $\alpha = 1$:</p>
+
+                <div class="step-box" style="text-align: center; border-left-color: #e36209; background: #fff5f5;">
+                    <strong>$$I(1) = \pi(1 - \ln 2)$$</strong>
+                </div>
+            </div>
+        </details>
+    </div>
 
 </body>
 </html>
