@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Niche Integral</title>
     
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
@@ -33,7 +40,6 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
-        /* Essential for horizontal scrolling on long formulas */
         .scrollable-math {
             overflow-x: auto;
             overflow-y: hidden;
@@ -49,7 +55,6 @@
             border-radius: 10px;
         }
 
-        /* Expandable Solution Section Styles */
         details {
             background: #ffffff;
             border: 1px solid #d1d5da;
@@ -81,13 +86,6 @@
             border-left: 4px solid #0366d6;
             padding: 15px;
             margin: 15px 0;
-        }
-
-        code {
-            background: #f1f3f5;
-            padding: 2px 5px;
-            border-radius: 4px;
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
         }
     </style>
 </head>
