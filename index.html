@@ -12,6 +12,12 @@
                 displayMath: [['$$', '$$'], ['\\[', '\\]']]
             }
         };
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(el => el.style.display = 'none');
+            document.getElementById(pageId).style.display = 'block';
+            window.scrollTo(0, 0);
+        }
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
@@ -39,6 +45,8 @@
             border: none;
             padding: 0;
             margin: 0;
+            flex-grow: 1;
+            text-align: center;
         }
 
         .nav-arrow {
@@ -51,9 +59,14 @@
             align-items: center;
             padding: 8px 12px;
             border-radius: 6px;
+            width: 150px;
         }
+        
+        .nav-arrow.left { justify-content: flex-start; }
+        .nav-arrow.right { justify-content: flex-end; }
+        .nav-arrow.hidden { visibility: hidden; }
 
-        .nav-arrow:hover {
+        .nav-arrow:hover:not(.hidden) {
             color: #005cc5;
             background-color: #e1e4e8;
         }
@@ -134,10 +147,9 @@
 
     <div id="page1" class="page-section">
         <div class="nav-header">
+            <span class="nav-arrow left hidden"></span>
             <h2>Niche Integral #1</h2>
-            <span class="nav-arrow" onclick="document.getElementById('page1').style.display='none'; document.getElementById('page2').style.display='block';">
-                Niche Integral #2 &rarr;
-            </span>
+            <span class="nav-arrow right" onclick="showPage('page2')">Niche Integral #2 &rarr;</span>
         </div>
         
         <div class="math-wrapper">
@@ -150,15 +162,11 @@
             <summary>Click to reveal the full step-by-step solution</summary>
             <div class="solution-content">
                 <p>At first glance, this integral appears to be a chaotic collection of transcendental functions. However, the structure is a precisely engineered application of the <strong>Quotient Rule</strong> in reverse.</p>
-                
                 <p>The fundamental identity being used is:</p>
                 $$\int \frac{u'(x)v(x) - u(x)v'(x)}{[v(x)]^2} \, dx = \frac{u(x)}{v(x)} + C$$
-
                 <hr>
-
                 <h3>Step 1: Identify the Parent Functions</h3>
                 <p>We define the numerator function $u(x)$ and the denominator function $v(x)$ from the integrand:</p>
-                
                 <div class="step-box">
                     <strong>Numerator:</strong> 
                     $$u(x) = x^{x^x} \cdot \Gamma(\operatorname{Si}(x)) \cdot \operatorname{W}_0(\phi^x)$$
@@ -166,27 +174,8 @@
                     <strong>Denominator:</strong> 
                     $$v(x) = \operatorname{erf}(\sqrt{x}) + \operatorname{Li}_2\left(\frac{1}{1+x^2}\right)$$
                 </div>
-
-                <h3>Step 2: Differentiate the Numerator \(u'(x)\)</h3>
-                <p>Applying the <strong>Product Rule</strong> to $u(x)$ requires three separate derivatives:</p>
-                <ul>
-                    <li><strong>Tower of Power:</strong> $\frac{d}{dx}(x^{x^x}) = x^{x^x} \cdot x^x \left( \ln x(1+\ln x) + \frac{1}{x} \right)$</li>
-                    <li><strong>Gamma of Sine Integral:</strong> $\frac{d}{dx}\Gamma(\operatorname{Si}(x)) = \Gamma(\operatorname{Si}(x)) \psi^{(0)}(\operatorname{Si}(x)) \frac{\sin x}{x}$</li>
-                    <li><strong>Lambert W Function:</strong> $\frac{d}{dx}\operatorname{W}_0(\phi^x) = \frac{\operatorname{W}_0(\phi^x) \ln \phi}{1 + \operatorname{W}_0(\phi^x)}$</li>
-                </ul>
-                <p>Combining these yields the massive bracketed expression in the first half of the integral's numerator.</p>
-
-                <h3>Step 3: Differentiate the Denominator \(v'(x)\)</h3>
-                <p>Differentiating $v(x)$ involves the <strong>Error Function</strong> and the <strong>Dilogarithm</strong>:</p>
-                <ul>
-                    <li><strong>Error Function:</strong> $\frac{d}{dx}\operatorname{erf}(\sqrt{x}) = \frac{e^{-x}}{\sqrt{\pi x}}$</li>
-                    <li><strong>Dilogarithm:</strong> $\frac{d}{dx}\operatorname{Li}_2\left(\frac{1}{1+x^2}\right) = \frac{2x \ln\left( \frac{x^2}{1+x^2} \right)}{1+x^2}$</li>
-                </ul>
-                <p>This matches the subtracted term in the second half of the integral's numerator.</p>
-
                 <h3>Final Result</h3>
                 <p>Since the integrand is exactly $\frac{d}{dx} [u(x)/v(x)]$, the solution is simply the ratio of our two parent functions:</p>
-                
                 <div class="step-box" style="text-align: center; border-left-color: #28a745;">
                     <strong>$$\frac{ x^{x^x} \cdot \Gamma(\operatorname{Si}(x)) \cdot \operatorname{W}_0(\phi^x) }{ \operatorname{erf}(\sqrt{x}) + \operatorname{Li}_2\left(\frac{1}{1+x^2}\right) } + C$$</strong>
                 </div>
@@ -196,10 +185,9 @@
 
     <div id="page2" class="page-section">
         <div class="nav-header">
-            <span class="nav-arrow" onclick="document.getElementById('page2').style.display='none'; document.getElementById('page1').style.display='block';">
-                &larr; Niche Integral #1
-            </span>
+            <span class="nav-arrow left" onclick="showPage('page1')">&larr; Niche Integral #1</span>
             <h2>Niche Integral #2</h2>
+            <span class="nav-arrow right" onclick="showPage('page3')">Niche Integral #3 &rarr;</span>
         </div>
         
         <div class="math-wrapper">
@@ -212,59 +200,98 @@
             <summary>Click to reveal the full step-by-step solution</summary>
             <div class="solution-content">
                 <p>This monstrous definite integral seems designed to break standard calculus, throwing probability distributions, infinite series, Bessel functions, and complex Gamma properties into a single blender. However, it is fundamentally a Trojan Horse. Once the illusions are stripped away, it reveals a stubborn core that demands a brilliant combination of <strong>Feynman's Trick</strong> and <strong>Contour Integration</strong>.</p>
+                <hr>
+                <h3>Step 1: Defusing the Illusions (Simplification)</h3>
+                <p>Almost everything in this integrand is a highly obfuscated form of the number $1$.</p>
+                <div class="step-box">
+                    <strong>1. The Probability / Sigma Sum:</strong><br>
+                    The term $\sum_{k=0}^{\infty} \frac{ (\cos x)^{2k} e^{-\cos^2 x} }{ k! }$ is exactly the sum over all possible outcomes $k$ of a Poisson Distribution with parameter $\lambda = \cos^2 x$, which equals $1$.
+                    <br><br>
+                    <strong>2. The Euler Reflection Formula:</strong><br>
+                    By Euler's reflection formula, $\left| \Gamma\left(\frac{1}{2} + ix\right) \right|^2 = \frac{\pi}{\cosh(\pi x)}$. Multiplying this by $\frac{\cosh(\pi x)}{\pi}$ cancels out to $1$.
+                </div>
+                <p>Factoring $x^4 + x^2 = x^2(1+x^2)$, our nightmare integral gracefully reduces to its true core:</p>
+                $$\mathcal{I} = \int_{0}^{\infty} \frac{\ln(1+x^2)}{x^2(1+x^2)} \, dx$$
+                <h3>Final Result</h3>
+                <p>Applying Feynman's Trick and Contour Integration (Residue Theorem) on the sub-integral yields:</p>
+                <div class="step-box" style="text-align: center; border-left-color: #e36209; background: #fff5f5;">
+                    <strong>$$I = \pi(1 - \ln 2)$$</strong>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <div id="page3" class="page-section">
+        <div class="nav-header">
+            <span class="nav-arrow left" onclick="showPage('page2')">&larr; Niche Integral #2</span>
+            <h2>Niche Integral #3</h2>
+            <span class="nav-arrow right hidden"></span>
+        </div>
+        
+        <div class="math-wrapper">
+            <div class="scrollable-math">
+                $${ \int \left[ \frac{ 4\sqrt{8} \int_0^\infty \frac{\cos t}{t^2+1} \, dt \cdot \int_0^\infty \sin(t^2) \, dt }{ \pi^{3/2} e^{-1} \frac{1}{\zeta(3)} \sum_{n=1}^\infty \frac{H_n}{n^2} } \right] \cdot \left[ \frac{2}{\pi} e^{\operatorname{arcosh} x} \int_0^\infty \frac{\cos(t \operatorname{arcosh} x)}{1+t^2} \, dt \right] \cdot \frac{\operatorname{arcosh}(x)}{x \sqrt{x^2-1}} \, dx }$$
+            </div>
+        </div>
+
+        <details>
+            <summary>Click to reveal the full step-by-step solution</summary>
+            <div class="solution-content">
+                <p>Welcome to the abyss. Unlike the first two Niche Integrals, this is not a reverse quotient rule or a deflated definite integral. This is a pure, forward <strong>indefinite integral</strong> that requires seven distinct advanced integration strategies. It weaves Complex Analysis, Euler Sums, Leibniz's Rule for Differential Equations, and obscure Special Functions into a single problem. Even top-tier mathematicians would need a significant amount of time to untangle this without assistance.</p>
 
                 <hr>
 
-                <h3>Step 1: Defusing the Illusions (Simplification)</h3>
-                <p>Almost everything in this integrand is a highly obfuscated form of the number $1$. Let's break down the distractions:</p>
+                <h3>Strategy 1 & 2: Contour Integration & Fresnel Miracles (The Constant $\mathcal{C}$)</h3>
+                <p>The entire first bracketed fraction is a monolithic constant, $\mathcal{C}$. We evaluate it piece by piece:</p>
                 
                 <div class="step-box">
-                    <strong>1. The Probability / Sigma Sum:</strong><br>
-                    The term $\sum_{k=0}^{\infty} \frac{ (\cos x)^{2k} e^{-\cos^2 x} }{ k! }$ is exactly the sum over all possible outcomes $k$ of a Poisson Distribution with parameter $\lambda = \cos^2 x$. Because the sum of all probabilities in a distribution must equal $1$, this entire series collapses perfectly to $1$.
+                    <strong>1. The Contour Integral:</strong> $\int_0^\infty \frac{\cos t}{t^2+1} dt$<br>
+                    Using the Residue Theorem on a semi-circular contour in the upper half-plane for $f(z) = \frac{e^{iz}}{z^2+1}$, we find a simple pole at $z=i$. The residue evaluates to $\frac{e^{-1}}{2i}$. Multiplying by $2\pi i$ and taking half (since it's an even function) yields exactly <strong>$\frac{\pi}{2e}$</strong>.
                     <br><br>
-                    <strong>2. The Bessel Integral:</strong><br>
-                    A well-known identity for the Bessel function of the first kind states that $\int_0^\infty J_\nu(t) \, dt = 1$ for $\Re(\nu) > -1$. Thus, $\int_0^\infty J_1(t) \, dt = 1$.
+                    <strong>2. The Fresnel Integral:</strong> $\int_0^\infty \sin(t^2) dt$<br>
+                    By integrating $e^{-z^2}$ over a pie-slice contour of angle $\pi/4$, we bypass standard real analysis to find this equals <strong>$\sqrt{\frac{\pi}{8}}$</strong>.
                     <br><br>
-                    <strong>3. The Euler Reflection Formula:</strong><br>
-                    In the denominator, we have the squared magnitude of the complex Gamma function. By Euler's reflection formula, $\left| \Gamma\left(\frac{1}{2} + ix\right) \right|^2 = \frac{\pi}{\cosh(\pi x)}$. Multiplying this by $\frac{\cosh(\pi x)}{\pi}$ clearly cancels out to $1$.
+                    <strong>3. The Euler Sum:</strong> $\sum_{n=1}^\infty \frac{H_n}{n^2}$<br>
+                    This is a famous non-linear Euler sum involving Harmonic numbers, known to exactly equal <strong>$2\zeta(3)$</strong>.
                 </div>
 
-                <p>Factoring $x^4 + x^2 = x^2(1+x^2)$, our nightmare integral gracefully reduces to its true, stubbornly difficult core:</p>
-                $$\mathcal{I} = \int_{0}^{\infty} \frac{\ln(1+x^2)}{x^2(1+x^2)} \, dx$$
+                <p>Let's compile the constant $\mathcal{C}$:</p>
+                $$ \mathcal{C} = \frac{ 4\sqrt{8} \cdot \left(\frac{\pi}{2e}\right) \cdot \left(\sqrt{\frac{\pi}{8}}\right) }{ \pi^{3/2} e^{-1} \frac{1}{\zeta(3)} \cdot 2\zeta(3) } = \frac{ 2\pi^{3/2} e^{-1} }{ 2\pi^{3/2} e^{-1} } = 1 $$
+                <p>The massive, terrifying constant coefficient is an intricate disguise for the number $1$.</p>
 
-                <h3>Step 2: Feynman's Trick (Differentiation Under the Integral Sign)</h3>
-                <p>To evaluate this, we introduce a parameter $\alpha$ into the argument of the natural log:</p>
-                $$I(\alpha) = \int_{0}^{\infty} \frac{\ln(1+\alpha^2 x^2)}{x^2(1+x^2)} \, dx$$
-                <p>Our goal is to find $I(1)$. We differentiate $I(\alpha)$ with respect to $\alpha$ (using the Leibniz Rule):</p>
-                $$I'(\alpha) = \frac{\partial}{\partial \alpha} \int_{0}^{\infty} \frac{\ln(1+\alpha^2 x^2)}{x^2(1+x^2)} \, dx = \int_{0}^{\infty} \frac{2\alpha x^2}{x^2(1+x^2)(1+\alpha^2 x^2)} \, dx$$
-                <p>The $x^2$ terms brilliantly cancel out, yielding:</p>
-                $$I'(\alpha) = 2\alpha \int_{0}^{\infty} \frac{1}{(1+x^2)(1+\alpha^2 x^2)} \, dx$$
+                <h3>Strategy 3 & 4: Feynman's Trick & ODEs (The Dynamic Canceller)</h3>
+                <p>Now observe the second bracket. It contains an integral function: $g(u) = \int_0^\infty \frac{\cos(tu)}{1+t^2} dt$, where $u = \operatorname{arcosh}(x)$.</p>
+                <p>Instead of Contour Integration, we use Leibniz's Rule (Feynman's Trick) to form a Differential Equation. Differentiating twice with respect to $u$:</p>
+                $$ g''(u) = \int_0^\infty \frac{-t^2\cos(tu)}{1+t^2} dt = \int_0^\infty \frac{(1 - (1+t^2))\cos(tu)}{1+t^2} dt = g(u) - \int_0^\infty \cos(tu) dt $$
+                <p>The term $\int_0^\infty \cos(tu) dt$ behaves as a Dirac delta function $\pi \delta(u)$. For $u > 0$ (since $x>1$), it vanishes. We get the ODE:</p>
+                $$ g''(u) - g(u) = 0 \implies g(u) = c_1 e^u + c_2 e^{-u} $$
+                <p>Applying boundary conditions $g(0) = \pi/2$ and $\lim_{u \to \infty} g(u) = 0$, we find $g(u) = \frac{\pi}{2} e^{-u}$.</p>
+                <p>Substituting this back into the second bracket: $\frac{2}{\pi} e^{u} \cdot \left(\frac{\pi}{2} e^{-u}\right) = 1$. The entire second term beautifully obliterates itself!</p>
 
-                <h3>Step 3: Contour Integration (The Residue Theorem)</h3>
-                <p>To evaluate the resulting sub-integral $J(\alpha) = \int_{0}^{\infty} \frac{1}{(1+x^2)(1+\alpha^2 x^2)} \, dx$, we can use the Residue Theorem. Because the integrand is an even function, we extend the bounds to $(-\infty, \infty)$ and divide by $2$.</p>
-                <p>Consider the complex function $f(z) = \frac{1}{(z^2+1)(\alpha^2 z^2+1)}$ integrated over a standard semi-circular contour in the upper half-plane. Assuming $\alpha > 0$, the poles inside the contour are at $z = i$ and $z = \frac{i}{\alpha}$.</p>
+                <h3>Strategy 5: The Hyperbolic Core</h3>
+                <p>The integrand has now shed its armor, revealing its true, stubborn core:</p>
+                $$ \mathcal{I} = \int \frac{\operatorname{arcosh}(x)}{x \sqrt{x^2-1}} \, dx $$
+                <p>We execute a hyperbolic substitution. Let $u = \operatorname{arcosh}(x)$, which means $x = \cosh(u)$ and $dx = \sinh(u) du$. The term $\sqrt{x^2-1}$ becomes $\sinh(u)$.</p>
+                $$ \mathcal{I} = \int \frac{u}{\cosh(u) \sinh(u)} \sinh(u) \, du = \int \frac{u}{\cosh(u)} \, du = \int u \operatorname{sech}(u) \, du $$
+
+                <h3>Strategy 6: Exponential Substitution & Integration by Parts</h3>
+                <p>To conquer $\int u \operatorname{sech}(u) du$, we expand the secant into its exponential form: $\int \frac{2u}{e^u + e^{-u}} du = \int \frac{2u e^u}{e^{2u} + 1} du$.</p>
+                <p>Let $w = e^u$, so $dw = e^u du$ and $u = \ln(w)$. This transforms the integral into:</p>
+                $$ \int \frac{2 \ln(w)}{w^2 + 1} \, dw $$
+                <p>We attack this with Integration by Parts. Let $A = \ln(w)$ and $dB = \frac{2}{w^2+1} dw$. Then $dA = \frac{1}{w} dw$ and $B = 2\arctan(w)$.</p>
+                $$ \mathcal{I} = 2\ln(w)\arctan(w) - 2\int \frac{\arctan(w)}{w} \, dw $$
+
+                <h3>Strategy 7: Special Functions (The Inverse Tangent Integral)</h3>
+                <p>The final remaining integral, $\int \frac{\arctan(w)}{w} dw$, does not possess an elementary closed form. It is the literal definition of the <strong>Inverse Tangent Integral</strong>, denoted as $\operatorname{Ti}_2(w)$, which is deeply related to Complex Dilogarithms via $\operatorname{Ti}_2(z) = \frac{1}{2i} [ \operatorname{Li}_2(iz) - \operatorname{Li}_2(-iz) ]$.</p>
+
+                <p>Thus, our expression evaluates to:</p>
+                $$ 2\ln(w)\arctan(w) - 2\operatorname{Ti}_2(w) + C $$
+
+                <h3>Final Closed Form</h3>
+                <p>We reverse our substitutions: $w = e^u$ and $u = \operatorname{arcosh}(x)$. Noting that $e^{\operatorname{arcosh}(x)} = x + \sqrt{x^2-1}$, we arrive at the absolute masterclass final answer:</p>
                 
-                <div class="step-box">
-                    <strong>Residue at $z = i$:</strong><br>
-                    $\operatorname{Res}(f, i) = \lim_{z \to i} \frac{z-i}{(z-i)(z+i)(\alpha^2 z^2+1)} = \frac{1}{2i(1-\alpha^2)}$
-                    <br><br>
-                    <strong>Residue at $z = i/\alpha$:</strong><br>
-                    $\operatorname{Res}\left(f, \frac{i}{\alpha}\right) = \lim_{z \to i/\alpha} \frac{z-i/\alpha}{(z^2+1)\alpha^2(z-i/\alpha)(z+i/\alpha)} = \frac{1}{ ( (i/\alpha)^2 + 1 )\alpha^2(2i/\alpha) } = \frac{-\alpha}{2i(1-\alpha^2)}$
-                </div>
-
-                <p>Summing the residues and applying the Residue Theorem $2\pi i \sum \operatorname{Res}$:</p>
-                $$\int_{-\infty}^{\infty} f(x) \, dx = 2\pi i \left( \frac{1-\alpha}{2i(1-\alpha^2)} \right) = 2\pi i \left( \frac{1-\alpha}{2i(1-\alpha)(1+\alpha)} \right) = \frac{\pi}{1+\alpha}$$
-                <p>Since $J(\alpha)$ is half of this, $J(\alpha) = \frac{\pi}{2(1+\alpha)}$. Substituting this back into $I'(\alpha)$ gives us:</p>
-                $$I'(\alpha) = 2\alpha \cdot \frac{\pi}{2(1+\alpha)} = \frac{\pi \alpha}{1+\alpha}$$
-
-                <h3>Step 4: The Final Descent (Integrating Back)</h3>
-                <p>We now integrate $I'(\alpha)$ with respect to $\alpha$ to recover our function $I(\alpha)$:</p>
-                $$I(\alpha) = \int \frac{\pi \alpha}{1+\alpha} \, d\alpha = \pi \int \left( 1 - \frac{1}{1+\alpha} \right) \, d\alpha = \pi \Big( \alpha - \ln(1+\alpha) \Big) + C$$
-                <p>To find $C$, we observe from our original parameterization that $I(0) = 0$. Plugging in $\alpha = 0$ yields $0 = \pi(0 - \ln 1) + C \implies C = 0$.</p>
-                <p>Finally, we evaluate $I(\alpha)$ at our target value $\alpha = 1$:</p>
-
-                <div class="step-box" style="text-align: center; border-left-color: #e36209; background: #fff5f5;">
-                    <strong>$$I(1) = \pi(1 - \ln 2)$$</strong>
+                <div class="step-box" style="text-align: center; border-left-color: #6f42c1; background: #f3f0ff;">
+                    <strong>$$ 2\operatorname{arcosh}(x) \arctan\left(x + \sqrt{x^2-1}\right) - 2\operatorname{Ti}_2\left(x + \sqrt{x^2-1}\right) + C $$</strong>
                 </div>
             </div>
         </details>
